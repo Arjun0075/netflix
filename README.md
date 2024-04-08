@@ -13,3 +13,4 @@ NetFlix
 3 - React.StrictMode - Info - Why is it used 
 4 - React Router Dom library ,ways of making routes in react #createBrowserRouter #RouterProvider
 5 - Sign Up & Sign In form , validations , useRef Hook
+6 - Added Git repo named netflix
