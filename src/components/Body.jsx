@@ -4,6 +4,7 @@ import Browse from "./Browse";
 
 
 const Body = () => {
+
   const appRouter = createBrowserRouter([
     {
       path: "",
@@ -14,6 +15,8 @@ const Body = () => {
       element: <Browse />,
     },
   ]);
+
+
 
   return (
     <div>

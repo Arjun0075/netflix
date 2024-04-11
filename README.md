@@ -12,5 +12,9 @@ NetFlix
 2 - Clean Up the project
 3 - React.StrictMode - Info - Why is it used 
 4 - React Router Dom library ,ways of making routes in react #createBrowserRouter #RouterProvider
-5 - Sign Up & Sign In form , validations , useRef Hook
+5 - Sign Up & Sign In form , validations , useRef Hook-
+        -Add a function for form validation, using useRef hook.
 6 - Added Git repo named netflix
+7 - Set up firebase into our little project, deploy it.
+8 - Created redux user store with user slice.
+9 - Check user logged in status using auth/firebase, and navigate accordingly to browse page and homepage

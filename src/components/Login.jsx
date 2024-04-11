@@ -1,9 +1,114 @@
 // import React from 'react'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
+import checkData from "../utils/validate";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { updateProfile } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import {background_logo} from "../utils/constants"
 
 const Login = () => {
   const [isSignUpForm, setSignUpForm] = useState(false);
+  const [isValidEmailAndPassword, setIsValidEmailAndPassword] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
+  const dispatch = useDispatch();
+
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
+
+  const updateProfileInfo = (user) => {
+    updateProfile(user, {
+      displayName: name.current.value,
+      photoURL: "https://example.com/jane-q-user/profile.jpg",
+    })
+      .then(() => {
+        // Profile updated!d
+        const { uid, email, displayName, photoURL } = auth.currentUser;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        // ...
+      })
+      .catch((error) => {
+        // An error occurred
+        // ...
+      });
+  };
+
+  const getUserInfo = () => {
+    const user = auth.currentUser;
+    if (user !== null) {
+      // The user object has basic properties such as display name, email, etc.
+      const { uid, email, displayName, photoURL } = user;
+      dispatch(
+        addUser({
+          uid: uid,
+          email: email,
+          displayName: displayName,
+          photoURL: photoURL,
+        })
+      );
+
+    }
+  };
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    const isValidData = checkData(email.current.value, password.current.value);
+    if (isValidData.isValid) {
+      // Sign in and Sign Up logic here
+      setIsValidEmailAndPassword(true);
+      if (!isSignUpForm) {
+        console.log("sign in form");
+        signInWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            getUserInfo()
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+          });
+      } else {
+        console.log("sign up form");
+        // const auth = getAuth();
+        createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            const user = userCredential.user;
+            updateProfileInfo(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            // ..
+          });
+      }
+    } else {
+      setIsValidEmailAndPassword(false);
+      setErrorMsg(isValidData.message);
+    }
+  };
 
   const toggleSignInForm = () => {
     setSignUpForm(!isSignUpForm);
@@ -13,7 +118,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/7ca5b7c7-20aa-42a8-a278-f801b0d65fa1/fb548c0a-8582-43c5-9fba-cd98bf27452f/IN-en-20240326-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src= {background_logo}
           alt="login"
         />
       </div>
@@ -27,31 +132,40 @@ const Login = () => {
         </h1>
         {isSignUpForm && (
           <input
+            ref={name}
             type="name"
             placeholder="Enter Name"
             className="rounded-sm my-3 p-4 w-full  bg-gray-700"
           />
         )}
-        {isSignUpForm && (
+        {/* {isSignUpForm && (
           <input
             type="number"
             placeholder="Enter Mobile Number"
             className="rounded-sm my-3 p-4 w-full  bg-gray-700"
           />
-        )}
+        )} */}
 
         <input
+          ref={email}
           type="email"
           placeholder="Email Address"
           className="rounded-sm my-3 p-4 w-full bg-gray-700"
         />
         <input
+          ref={password}
           type="password"
           placeholder="Password"
           className="rounded-sm my-3 p-4 w-full  bg-gray-700"
         />
+        {!isValidEmailAndPassword && <p className="text-red-500">{errorMsg}</p>}
 
-        <button className="p-4 my-4 bg-red-600 w-full text-sm rounded-sm">
+        <button
+          className="p-4 my-4 bg-red-600 w-full text-sm rounded-sm"
+          onClick={(e) => {
+            handleButtonClick(e);
+          }}
+        >
           {isSignUpForm ? "Sign Up" : "Sign In"}
         </button>
         {/* <h2>Forgot Password</h2> */}
