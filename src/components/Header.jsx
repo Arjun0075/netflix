@@ -56,7 +56,7 @@ const Header = () => {
           <img className="w-12 h-12 m-3  rounded-md" src={profile_logo} />
           <div>
             <ul>
-              <li className="font-bold">
+              <li className="font-bold text-white">
                 Hello {user.displayName.split(" ")[0]}
               </li>
               <li

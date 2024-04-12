@@ -18,3 +18,6 @@ NetFlix
 7 - Set up firebase into our little project, deploy it.
 8 - Created redux user store with user slice.
 9 - Check user logged in status using auth/firebase, and navigate accordingly to browse page and homepage
+10 - Registered for tmbd website and get got data from tmbd website for movies
+11 - Created Movie slice , fetched data for Now Playing movies.
+12 - Added latest movie trailer to background just like netflix
