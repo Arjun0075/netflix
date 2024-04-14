@@ -4,7 +4,7 @@ import useDisplayTrailer from "../hooks/useDisplayTrailer";
 const VideoContainer = ({ videoId }) => {
     useDisplayTrailer(videoId)
   const displayTrailer = useSelector((store) => store.movies?.displayTrailer);
-  console.log(displayTrailer)
+  // console.log(displayTrailer)
 
   return (
     <div>

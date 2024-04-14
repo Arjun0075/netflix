@@ -1,6 +1,8 @@
+import MovieListContainer from "./MovieListContainer"
+
 const SecondaryContainer = () => {
     return (
-        <h1>Secondary Container</h1>
+       <MovieListContainer/>
     )
 }
 
