@@ -1,4 +1,4 @@
-import MovieListContainer from "./MovieListContainer"
+import MovieListContainer from "./MovieContainer/MovieListContainer"
 
 const SecondaryContainer = () => {
     return (

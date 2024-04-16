@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import useDisplayTrailer from "../hooks/useDisplayTrailer";
+import useDisplayTrailer from "../../hooks/useDisplayTrailer";
 
 const VideoContainer = ({ videoId }) => {
     useDisplayTrailer(videoId)
