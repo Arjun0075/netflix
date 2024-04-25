@@ -5,7 +5,7 @@ const MovieListContainer = () => {
 
     const movies = useSelector((store) => store.movies)
 
-    // console.log(nowPlayingMovies)
+    console.log(movies)
     if (movies.nowPlayingMovies === null) return
 
     // console.log(movies.topRatedMovies)

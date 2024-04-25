@@ -11,6 +11,7 @@ const MainContainer = () => {
   // console.log(mainMovie)
 
   const { original_title, overview, id } = mainMovie;
+  
 
   return (
     <div>
