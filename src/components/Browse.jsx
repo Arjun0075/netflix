@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import Header from "./Header";
+import React from "react";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import MainContainer from "./MainContainer";
